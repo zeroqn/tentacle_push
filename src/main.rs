@@ -34,8 +34,9 @@ async fn main() {
         service.dial(server, TargetProtocol::All).await.expect("dial");
 
         loop {
-             service.next().await;
-             break;
+            if service.next().await.is_none() {
+                break;
+            }
         }
     }
 }
